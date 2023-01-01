@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/hmanjun/Discord-Clone/issues"
   },
-  "homepage": "https://github.com/hmanjun/Discord-Clone#readme"
+  "homepage": "https://github.com/hmanjun/Discord-Clone#readme",
+  "dependencies": {
+    "mongoose": "^6.8.2"
+  }
 }
