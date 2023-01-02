@@ -1,12 +1,12 @@
 import './App.css';
 import React, {useState} from 'react';
+let ws
 
 function App() {
   const [recievedMessage, setRecievedMessage] = useState([])
   const [sendMessage, setSendMessage] = useState("")
   const [connected, setConnection] = useState(false)
-
-  let ws
+  
   const connectWss = () =>{
     if(connected) return
     if(ws){
@@ -15,6 +15,7 @@ function App() {
     }
 
     ws = new WebSocket(`ws://${window.location.host}`)
+
     ws.onopen = () =>{
       setConnection(true)
     }
@@ -22,6 +23,12 @@ function App() {
     ws.addEventListener('message', ({data}) => {
       setRecievedMessage([...recievedMessage, data])
     })
+  }
+
+  const send = () => {
+    if(!ws) return
+    ws.send(sendMessage)
+    setSendMessage("")
   }
 
   return (
@@ -32,6 +39,7 @@ function App() {
       <h2>Recent Messages</h2>
       <div className='recieved-messages'>{recievedMessage.map(message => <h4>{message}</h4>)}</div>
       <input input={sendMessage} onChange={e => setSendMessage(e.target.value)}></input>
+      <button className='send-message-button' onClick={send}>Send</button>
     </div>
   );
 }
