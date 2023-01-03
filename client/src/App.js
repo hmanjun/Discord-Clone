@@ -20,15 +20,18 @@ function App() {
       setConnection(true)
     }
 
-    ws.addEventListener('message', ({data}) => {
-      setRecievedMessage([...recievedMessage, data])
+    ws.addEventListener('message', (message) => {
+      const {data} = message
+      setRecievedMessage(curr => [...curr, data])
     })
   }
 
   const send = () => {
     if(!ws) return
-    ws.send(sendMessage)
+    console.log(`sending: ${sendMessage}`)
+    ws.send(`${sendMessage}`)
     setSendMessage("")
+
   }
 
   return (
@@ -37,8 +40,8 @@ function App() {
       <h3>Room Code: Unused</h3>
       <button onClick={connectWss}>Connect to Server</button>
       <h2>Recent Messages</h2>
-      <div className='recieved-messages'>{recievedMessage.map(message => <h4>{message}</h4>)}</div>
-      <input input={sendMessage} onChange={e => setSendMessage(e.target.value)}></input>
+      <div className='recieved-messages'>{recievedMessage.map(message => (<h4>{message}</h4>))}</div>
+      <input className='input-bar' value={sendMessage} onChange={e => setSendMessage(e.target.value)}></input>
       <button className='send-message-button' onClick={send}>Send</button>
     </div>
   );
