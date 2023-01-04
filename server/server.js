@@ -1,9 +1,9 @@
 const express = require("express")
 const session = require('express-session')
-const uuid = require('uuid')
 const path = require('path')
-const ws = require("ws")
+const {WebSocketServer} = require("ws")
 const http = require("http")
+const routes = require('./controllers')
 
 const db = require("./config/connection")
 const PORT = 8080
@@ -22,24 +22,30 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 //Render React html
+app.use(express.static(path.join(__dirname, '../client/build')))
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')))
 }
-  
-app.get('*', (req, res) => {
+
+
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'))
 })
+
+
+app.use(routes)
 
 //Save ws with key userId
 const map = {}
 
 //Create websocket server
 const server = new http.createServer(app)
-const wss = new WebSocket.Server({ clientTracking: false, noServer: true })
+const wss = new WebSocketServer({ clientTracking: true, noServer: true })
 
 //Server middleware, checking login status should be added here later
-server.on('upgrade', (req, socket, head) => { 
-    console.log('Bypassing check of session data')
+server.on('upgrade', (request, socket, head) => { 
+    //console.log('Bypassing check of session data')
     wss.handleUpgrade(request, socket, head, (ws) => {
         wss.emit('connection', ws, request);
     })
@@ -47,8 +53,12 @@ server.on('upgrade', (req, socket, head) => {
 
 //WSS listeners
 wss.on("connection", (ws,req) => {
+    console.log('Client has connected to ws server.')
+
     ws.on('message', message =>{
-        console.log(`Recieved message: ${message}`)
+        wss.clients.forEach(client => {
+            client.send(`${message}`)
+        })
     })
 
     ws.on('close', () => {
