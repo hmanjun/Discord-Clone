@@ -3,7 +3,9 @@ const session = require('express-session')
 const path = require('path')
 const {WebSocketServer} = require("ws")
 const http = require("http")
+const { v4: uuidv4 } = require('uuid');
 const routes = require('./controllers')
+const {joinRoom, leaveRoom} = require('./ws-functions')
 
 const db = require("./config/connection")
 const PORT = 8080
@@ -41,7 +43,7 @@ const map = {}
 
 //Create websocket server
 const server = new http.createServer(app)
-const wss = new WebSocketServer({ clientTracking: true, noServer: true })
+const wss = new WebSocketServer({ clientTracking: false, noServer: true })
 
 //Server middleware, checking login status should be added here later
 server.on('upgrade', (request, socket, head) => { 
@@ -54,15 +56,25 @@ server.on('upgrade', (request, socket, head) => {
 //WSS listeners
 wss.on("connection", (ws,req) => {
     console.log('Client has connected to ws server.')
+    ws.id = uuidv4()
 
-    ws.on('message', message =>{
+    ws.on('message', data =>{
+        data = JSON.parse(data)
+        if(data.joinRoom){
+            console.log(`client wants to join the room: ${data.roomName}`)
+            joinRoom(data.roomName, ws.id)
+            ws.room = data.roomName
+            return
+        }
+        /*
         wss.clients.forEach(client => {
-            client.send(`${message}`)
+            client.send(`${data.message}`)
         })
+        */
     })
 
     ws.on('close', () => {
-        //map.delete(userId)
+        leaveRoom(ws.room, ws.id)
     })
 })
 

@@ -1,4 +1,4 @@
-const {Schema, model, default: mongoose} = require('mongoose')
+const {Schema, model} = require('mongoose')
 
 //const textChatSchema = require('./textChatSchema')
 
@@ -12,7 +12,6 @@ const channelSchema = new Schema(
             type: String,
             required: true
         }]
-
     }
 )
 
