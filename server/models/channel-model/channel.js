@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model, mongo, default: mongoose} = require('mongoose')
 
 //const textChatSchema = require('./textChatSchema')
 
@@ -9,8 +9,12 @@ const channelSchema = new Schema(
             required: true
         },
         users: [{
-            type: String,
-            required: true
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
+        }],
+        chatRooms: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'chatroom'
         }]
     }
 )

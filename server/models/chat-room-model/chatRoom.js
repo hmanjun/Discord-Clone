@@ -1,6 +1,6 @@
 const {Schema, model, default: mongoose} = require('mongoose')
 
-const roomSchema = newSchema(
+const roomSchema = new Schema(
     {
         name: {
             type: String,
