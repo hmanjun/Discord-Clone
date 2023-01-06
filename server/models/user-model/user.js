@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model, default: mongoose} = require('mongoose')
 const bcrypt = require('bcrypt')
 
 const userSchema = new Schema(
@@ -21,7 +21,10 @@ const userSchema = new Schema(
             minlength: 8
         },
         messages: [],
-        joinedChats: []
+        joinedChannels: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'channel'
+        }]
     }
 )
 
@@ -30,6 +33,8 @@ userSchema.pre('save', async function(next) {
         const saltRounds = 10
         this.password = await bcrypt.hash(this.password, saltRounds)
     }
+
+    next()
 })
 
 userSchema.methods.isCorrectPassword = async function(password){
