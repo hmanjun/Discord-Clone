@@ -5,7 +5,7 @@ const {WebSocketServer} = require("ws")
 const http = require("http")
 const { v4: uuidv4 } = require('uuid');
 const routes = require('./controllers')
-const {joinRoom, leaveRoom} = require('./ws-functions')
+const {joinRoom, leaveRoom, getRoomUsers} = require('./ws-functions')
 
 const db = require("./config/connection")
 const PORT = 8080
@@ -43,7 +43,7 @@ const map = {}
 
 //Create websocket server
 const server = new http.createServer(app)
-const wss = new WebSocketServer({ clientTracking: false, noServer: true })
+const wss = new WebSocketServer({ clientTracking: true, noServer: true })
 
 //Server middleware, checking login status should be added here later
 server.on('upgrade', (request, socket, head) => { 
@@ -58,7 +58,7 @@ wss.on("connection", (ws,req) => {
     console.log('Client has connected to ws server.')
     ws.id = uuidv4()
 
-    ws.on('message', data =>{
+    ws.on('message', async (data) =>{
         data = JSON.parse(data)
         if(data.joinRoom){
             console.log(`client wants to join the room: ${data.roomName}`)
@@ -66,6 +66,17 @@ wss.on("connection", (ws,req) => {
             ws.room = data.roomName
             return
         }
+
+        //Send messages to channel users
+        
+        const users = await getRoomUsers(ws.room)
+        //console.log(`recieved message ${data.message}, forwarding it to ${users}`)
+        wss.clients.forEach(client => {
+            if(users.includes(client.id)){
+                //console.log(`found a user`)
+                client.send(`${data.message}`)
+            } 
+        })
         /*
         wss.clients.forEach(client => {
             client.send(`${data.message}`)

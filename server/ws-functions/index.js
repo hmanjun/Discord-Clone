@@ -14,4 +14,10 @@ const leaveRoom = async (roomName, wsID) => {
     )
 }
 
-module.exports = {joinRoom, leaveRoom}
+const getRoomUsers = async (roomName) => {
+    const channelData = await Channel.findOne({name: roomName})
+    if(channelData) return channelData.users
+    return false
+}
+
+module.exports = {joinRoom, leaveRoom, getRoomUsers}

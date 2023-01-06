@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 let ws
 
 function App() {
+  const [roomName, setRoomName] = useState("")
   const [recievedMessage, setRecievedMessage] = useState([])
   const [sendMessage, setSendMessage] = useState("")
   const [connected, setConnection] = useState(false)
@@ -18,6 +19,7 @@ function App() {
 
     ws.onopen = () =>{
       setConnection(true)
+      ws.send(JSON.stringify({joinRoom: true, roomName: `${roomName}`}))
     }
 
     ws.addEventListener('message', (message) => {
@@ -29,7 +31,7 @@ function App() {
   const send = () => {
     if(!ws) return
     console.log(`sending: ${sendMessage}`)
-    ws.send(`${sendMessage}`)
+    ws.send(JSON.stringify({joingRoom: false, message: `${sendMessage}`}))
     setSendMessage("")
 
   }
@@ -37,7 +39,7 @@ function App() {
   return (
     <div className="App">
       <h1>Connected status: {connected ? `connected` : `disconnected`}</h1>
-      <h3>Room Code: Unused</h3>
+      <h3>Room Code: <input value={roomName} onChange={e => setRoomName(e.target.value)}></input></h3>
       <button onClick={connectWss}>Connect to Server</button>
       <h2>Recent Messages</h2>
       <div className='recieved-messages'>{recievedMessage.map(message => (<h4>{message}</h4>))}</div>
