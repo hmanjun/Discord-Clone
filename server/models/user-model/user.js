@@ -20,7 +20,10 @@ const userSchema = new Schema(
             required: true,
             minlength: 8
         },
-        messages: [],
+        messages: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'message'
+        }],
         joinedChannels: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'channel'
