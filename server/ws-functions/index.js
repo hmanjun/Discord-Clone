@@ -1,6 +1,6 @@
-const {Channel} = require('../models')
+const {Channel,ChatRoom} = require('../models')
 
-const joinRoom = async (roomName, wsID) => {
+const joinChatRoom = async (roomId, wsID) => {
     await Channel.findOneAndUpdate(
         {name: roomName},
         {$push: {users: wsID}}

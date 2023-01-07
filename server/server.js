@@ -12,12 +12,14 @@ const PORT = 8080
 
 //const PORT = process.env.PORT || 3001
 const app = express()
+
 const sess = {
     secret: 'fnwafnj dwabi',
     saveUninitialized: false,
     resave:false
 }
 app.use(session(sess))
+
 
 //Middleware to parse incoming data
 app.use(express.urlencoded({ extended: true }))
