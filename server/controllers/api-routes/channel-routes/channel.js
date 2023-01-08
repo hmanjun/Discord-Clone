@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Channel} = require('../models')
+const {Channel} = require('../../../models')
 
 router.get('/:roomName', async(req,res) => {
     const channelData = await Channel.findOne({name: req.params.roomName})

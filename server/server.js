@@ -5,7 +5,7 @@ const {WebSocketServer} = require("ws")
 const http = require("http")
 const { v4: uuidv4 } = require('uuid');
 const routes = require('./controllers')
-const {joinRoom, leaveRoom, getRoomUsers} = require('./ws-functions')
+const {joinChatRoom, leaveRoom, getRoomUsers} = require('./ws-functions')
 
 const db = require("./config/connection")
 const PORT = 8080
@@ -64,7 +64,7 @@ wss.on("connection", (ws,req) => {
         data = JSON.parse(data)
         if(data.joinRoom){
             console.log(`client wants to join the room: ${data.roomName}`)
-            joinRoom(data.roomName, ws.id)
+            joinChatRoom(data.roomName, ws.id)
             ws.room = data.roomName
             return
         }

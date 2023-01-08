@@ -20,4 +20,4 @@ const getRoomUsers = async (roomName) => {
     return false
 }
 
-module.exports = {joinRoom, leaveRoom, getRoomUsers}
+module.exports = {joinChatRoom, leaveRoom, getRoomUsers}

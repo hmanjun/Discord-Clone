@@ -4,7 +4,7 @@ const {User} = require('../../../models')
 router.post('/sign-up', async(req, res) => {
     try {
         const {username, email, password} = req.body
-        const userData = User.create({username, email, password})
+        const userData = await User.create({username, email, password})
         
         req.session.save(() => {
             req.session.userId = userData._id
@@ -18,12 +18,13 @@ router.post('/sign-up', async(req, res) => {
 
 router.post('/login', async(req,res) => {
     try {
-        const userData = User.findOne({email: req.body.email})
+        const {email, password} = req.body
+        const userData = await User.findOne({email: email})
         if(!userData){
             res.status(400).json({message: `No user with that email and password was found.`})
             return
         }
-        const validPassword = await userData.isCorrectPassword(req.body.password)
+        const validPassword = await userData.isCorrectPassword(password)
         if(!validPassword) {
             res.status(400).json({message: `No user with that email and password was found.`})
             return
