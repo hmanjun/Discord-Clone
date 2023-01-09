@@ -16,7 +16,10 @@ const app = express()
 const sess = {
     secret: 'fnwafnj dwabi',
     saveUninitialized: false,
-    resave:false
+    resave:false,
+    cookie: {
+        maxAge: 60000
+    }
 }
 app.use(session(sess))
 
@@ -33,7 +36,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'))
 })
 

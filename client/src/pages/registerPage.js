@@ -30,9 +30,8 @@ const RegisterPage = () => {
 
     const createAccount = () => {
         if(!validateFields()) return
-        console.log('reached')
         axios
-            .post(`http://localhost:8080/api/user/sign-up`,{
+            .post(`http://${window.location.host}/api/user/sign-up`,{
                 username: username,
                 email: email,
                 password: password
@@ -59,7 +58,7 @@ const RegisterPage = () => {
                     <input type='text' value={password} onChange={e => setPassword(e.target.value.replaceAll(" ",""))}></input>
                     <button className='log-reg-btn' type='button' onClick={createAccount}>Continue</button>
                 </div>
-                <a href='google.com'>Already have an account?</a>
+                <a href='/login'>Already have an account?</a>
                 {error && <ul>{errorMessage.map((msg, i) => (<li className='log-reg-err' key={`${i}`}>{`${msg}`}</li>))}</ul>}
                 <p>By registering, you consent to the creation of a account with the above credentials.</p>
             </div>
