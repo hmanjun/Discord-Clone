@@ -1,0 +1,86 @@
+.log-reg-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #36393F;
+  width: 500px;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+.log-reg-modal b {
+  font-size: x-large;
+  color: #FDFDFD;
+}
+
+.log-reg-modal label {
+  color: #9A9DA1;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.log-reg-modal input {
+  width: 100%;
+  background-color: #202225;
+  border: none;
+  border-radius: 2px;
+  height: 35px;
+  color: #F7F8FE;
+  margin-bottom: 10px;
+  padding-left: 5px;
+}
+
+.log-reg-modal a {
+  margin-top: 10px;
+  text-decoration: none;
+  color: #0F8EC2;
+}
+
+.log-reg-modal p {
+  color: #9A9DA1;
+  font-size: small;
+}
+
+.log-reg-form {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 95%;
+}
+
+.log-reg-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./images/log-reg-background.png');
+  height: 100vh;
+  background-position: center 0px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.log-reg-btn {
+  height: 35px;
+  width: 101%;
+  margin-top: 10px;
+  background-color: #5865F2;
+  border: none;
+  border-radius: 2px;
+  color: #F7F8FE;
+  font-weight: bold;
+  font-size:medium;
+}
+
+.log-reg-btn:hover {
+  cursor: pointer;
+  background-color: #3e4df0;
+}
+
+.log-reg-err {
+  color: #FF6961;
+}
