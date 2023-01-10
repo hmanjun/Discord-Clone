@@ -18,7 +18,7 @@ const sess = {
     saveUninitialized: false,
     resave:false,
     cookie: {
-        maxAge: 60000
+        maxAge: 300000
     }
 }
 app.use(session(sess))
@@ -35,11 +35,11 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')))
 }
 
-
+/*
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'))
 })
-
+*/
 
 app.use(routes)
 
