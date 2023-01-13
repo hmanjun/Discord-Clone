@@ -31,13 +31,13 @@ const RegisterPage = () => {
     const createAccount = () => {
         if(!validateFields()) return
         axios
-            .post(`http://${window.location.host}/api/user/sign-up`,{
+            .post(`http://localhost:8080/api/user/sign-up`, {
                 username: username,
                 email: email,
                 password: password
-            })
+            }, {withCredentials: true})
             .then(response => {
-                window.location.assign(`https://google.com`)
+                window.location.assign(`https://google.com`, )
             })
             .catch(err => {
                 setError(true)

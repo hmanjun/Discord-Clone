@@ -2,6 +2,7 @@ import './App.css';
 import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import ChannelPage from './pages/channelPage';
 import LoginPage from './pages/loginPage'
 import RegisterPage from './pages/registerPage'
 
@@ -18,6 +19,10 @@ function App() {
           <Route
             path="/register"
             element={<RegisterPage/>}
+          />
+          <Route
+            path="/channels"
+            element={<ChannelPage/>}
           />
         </Routes>
       </Router>

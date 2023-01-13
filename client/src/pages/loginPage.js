@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const LoginPage = () => {
@@ -26,15 +27,16 @@ const LoginPage = () => {
     const login = () => {
         if(!validateFields()) return
         axios
-            .post(`http://${window.location.host}/api/user/login`,{
+            .post(`http://localhost:8080/api/user/login`, {
                 email: email,
                 password: password
-            })
+            }, {withCredentials: true})
             .then(response => {
-                window.location.assign(`https://google.com`)
+                window.location.assign(`/channels`)
+                //this.props.router.push('/channels')
             })
             .catch(err => {
-                setErrorMessage(err)
+                setErrorMessage([err])
                 setError(true)
             })
     }

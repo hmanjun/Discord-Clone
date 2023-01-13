@@ -53,9 +53,10 @@ router.post('/logout', async(req,res) => {
 
 router.get('/channels', async(req,res) => {
     try {
+        console.log(req.session.userId)
         const userData = await User.findOne({_id: req.session.userId}).populate('joinedChannels')
         if(!userData){
-            res.status(400).json({message: `No user found`})
+            res.status(402).json({message: `No user found`})
             return
         }
         const {joinedChannels} = userData
