@@ -11,6 +11,19 @@ router.get('/:roomName', async(req,res) => {
 })
 */
 
+router.get('/:channelId', async(req,res) => {
+    try {
+        const channelData = await Channel.findById(req.params.channelId).populate('chatRooms')
+        if(!channelData) {
+            res.status(400).json({message: "No channel found with that id"})
+            return
+        }
+        res.status(200).json(channelData)
+    } catch (err) {
+        res.status(400).json(err)
+    }
+})
+
 router.post('/create', async(req,res) => {
     try {
         const {name} = req.body
