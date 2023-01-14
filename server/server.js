@@ -18,7 +18,7 @@ const sess = {
     saveUninitialized: false,
     resave:false,
     cookie: {
-        maxAge: 300000
+        maxAge: (24 * 60 * 60 * 1000)
     }
 }
 app.use(session(sess))
