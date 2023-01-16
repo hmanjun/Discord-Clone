@@ -36,7 +36,7 @@ router.post('/create', async(req,res) => {
 
 })
 
-router.patch('/join/:channelId', async(req,res) => {
+router.post('/join/:channelId', async(req,res) => {
     try {
         await Channel.findByIdAndUpdate(req.params.channelId, {$push: {users: req.session.userId}})
         await User.findByIdAndUpdate(req.session.userId, {$push: {joinedChannels: req.params.channelId}})

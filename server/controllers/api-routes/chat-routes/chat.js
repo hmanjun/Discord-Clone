@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const {ChatRoom, Message} = require('../../../models')
 
-router.patch('/join/:chatId', async(req,res) => {
+router.post('/join/:chatId', async(req,res) => {
     try {
+        console.log(req.session.userId)
         const {_id} = await ChatRoom.findByIdAndUpdate(req.params.chatId, {$push: {activeUsers: req.session.userId}})
         req.session.currentChat = _id
         res.status(200).json({message: `Successfully joined chat`})
@@ -11,10 +12,10 @@ router.patch('/join/:chatId', async(req,res) => {
     }
 })
 
-router.patch('/leave', async(req,res) => {
+router.post('/leave', async(req,res) => {
     try {
         if(!req.session.currentChat) {
-            res.status(406).end()
+            res.status(200).end()
             return
         }
         await ChatRoom.findByIdAndUpdate(req.session.currentChat, {$pull: {activeUsers: req.session.userId}})

@@ -66,7 +66,7 @@ router.get('/channels', async(req,res) => {
     }
 })
 
-router.patch('/leave-all-chats', async (req,res) => {
+router.post('/leave-all-chats', async (req,res) => {
     try {
         const {joinedChannels} = await User.findById(req.session.userId).populate('joinedChannels')
         if(!joinedChannels) {
