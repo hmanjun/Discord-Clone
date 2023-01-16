@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
+import { leaveAllChats } from '../utils/chatHelpers'
 import axios from 'axios'
 
 const LoginPage = () => {
@@ -31,7 +31,8 @@ const LoginPage = () => {
                 email: email,
                 password: password
             }, {withCredentials: true})
-            .then(response => {
+            .then(async response => {
+                await leaveAllChats()
                 window.location.assign(`/channels`)
                 //this.props.router.push('/channels')
             })

@@ -32,13 +32,15 @@ const ChannelBar = () => {
         return res
     }
 
+    //console.log(`channels: ${channels}`)
+
     return (
         <nav className="channel-bar-container">
             {loading ? (
                 <h1>loading...</h1>
             ) : (
                 channels.map((channel, i) => (
-                    <Link className={`channel-bar-link ${selectedChannel === `${channel.name}` ? "channel-bar-selected" : ""}`} to={`/channels`} data-name={channel.name} key={i} onClick={markCurrentServer}>
+                    <Link className={`channel-bar-link ${selectedChannel === `${channel.name}` ? "channel-bar-selected" : ""}`} to={`/channels/${channel._id}`} data-name={channel.name} key={i} onClick={markCurrentServer}>
                         <span data-name={channel.name} onClick={markCurrentServer}>{abreviateChannel(channel.name)}</span>
                     </Link>
                 ))
