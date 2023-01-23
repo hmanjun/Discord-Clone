@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from "axios";
 
 const ChannelBar = () => {
     const [loading, setLoading] = useState(true)
     const [channels, setChannels] = useState([])
     const [selectedChannel, setSelectedChannel] = useState("")
+    const {channelId} = useParams()
 
     useEffect(() => {
         axios
@@ -40,7 +41,7 @@ const ChannelBar = () => {
                 <h1>loading...</h1>
             ) : (
                 channels.map((channel, i) => (
-                    <Link className={`channel-bar-link ${selectedChannel === `${channel.name}` ? "channel-bar-selected" : ""}`} to={`/channels/${channel._id}`} data-name={channel.name} key={i} onClick={markCurrentServer}>
+                    <Link className={`channel-bar-link ${selectedChannel === `${channel.name}` || channelId === channel._id ? "channel-bar-selected" : ""}`} to={`/channels/${channel._id}`} data-name={channel.name} key={i} onClick={markCurrentServer}>
                         <span data-name={channel.name} onClick={markCurrentServer}>{abreviateChannel(channel.name)}</span>
                     </Link>
                 ))

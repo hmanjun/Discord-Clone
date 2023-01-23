@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import {leaveCurrentChat, joinChat} from '../utils/chatHelpers'
 
@@ -9,6 +9,7 @@ const ChatBar = ({channelId}) => {
     const [data, setData] = useState({})
     const [selectedChat, setSelectedChat] = useState({})
     const navigate = useNavigate()
+    const cId = useParams().chatId
 
     useEffect(() => {
         axios
@@ -49,7 +50,7 @@ const ChatBar = ({channelId}) => {
                     </div>
                     <div style={{marginTop: 10, display: "flex", flexDirection: "column", alignItems: "center"}}>
                         {rooms.map((room, i) => (
-                            <div className={`chat-bar-link ${selectedChat === room._id ? "chat-bar-link-selected" : ""}`} data-id={room._id} key={i} onClick={e => join(e, room._id)}>
+                            <div className={`chat-bar-link ${selectedChat === room._id || cId === room._id? "chat-bar-link-selected" : ""}`} data-id={room._id} key={i} onClick={e => join(e, room._id)}>
                                 <span data-id={room._id}>{`# ${room.name}`}</span>
                             </div>
                         ))}
