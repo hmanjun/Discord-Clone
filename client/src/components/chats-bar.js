@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import {leaveCurrentChat, joinChat} from '../utils/chatHelpers'
 
@@ -8,8 +8,9 @@ const ChatBar = ({channelId}) => {
     const [rooms, setRooms] = useState([])
     const [data, setData] = useState({})
     const [selectedChat, setSelectedChat] = useState({})
+    const navigate = useNavigate()
 
-    useEffect((channelId) => {
+    useEffect(() => {
         axios
             .get(`http://localhost:8080/api/channel/${channelId}`, {withCredentials: true})
             .then(response => {
@@ -20,15 +21,19 @@ const ChatBar = ({channelId}) => {
             .catch(err => console.log(err))
     }, [])
 
-    const join = async (event) => {
+    const join = async (event, roomId) => {
         const chatId = event.target.getAttribute('data-id')
         setSelectedChat(`${chatId}`)
         await leaveCurrentChat()
-        await joinChat(chatId)
-        axios
-        .post(`http://localhost:8080/api/chat-room/join/${chatId}`,{}, {withCredentials: true})
-        .then(response => console.log(response))
-        .catch(err => console.log(err))
+        //await joinChat(chatId)
+        await axios
+            .post(`http://localhost:8080/api/chat-room/join/${chatId}`,{},{withCredentials: true})
+            .then()
+            .catch(err => console.log(err))
+        await axios
+            .post(`http://localhost:8080/api/chat-room/join/${chatId}`,{}, {withCredentials: true})
+            .catch(err => console.log(err))
+        navigate(`/channels/${channelId}/${roomId}`)
     }
 
     return (
@@ -44,9 +49,9 @@ const ChatBar = ({channelId}) => {
                     </div>
                     <div style={{marginTop: 10, display: "flex", flexDirection: "column", alignItems: "center"}}>
                         {rooms.map((room, i) => (
-                            <Link className={`chat-bar-link ${selectedChat === room._id ? "chat-bar-link-selected" : ""}`} to={`/channels/${channelId}/${room._id}`} data-id={room._id} key={i} onClick={join}>
+                            <div className={`chat-bar-link ${selectedChat === room._id ? "chat-bar-link-selected" : ""}`} data-id={room._id} key={i} onClick={e => join(e, room._id)}>
                                 <span data-id={room._id}>{`# ${room.name}`}</span>
-                            </Link>
+                            </div>
                         ))}
                     </div>
                 </div>

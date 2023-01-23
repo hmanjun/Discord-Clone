@@ -215,7 +215,7 @@ body,html {
 
 .chat-bar-link:hover, .chat-bar-link-selected{
   background-color: #42464D;
-
+  cursor: pointer;
   color: white;
 }
 
@@ -226,4 +226,130 @@ body,html {
 
 .chat-bar-container::-webkit-scrollbar {
   display: none;
+}
+
+/*Message Section*/
+.messages-section{
+  background-color: #36393F;
+  width: 90%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.messages-section-header {
+  color: #F8F9FF;
+  font-weight: bold;
+  font-size: larger;
+  height: 50px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  padding: 20px;
+
+  border-bottom: solid;
+  border-color: #2B2E33;
+}
+
+.msb-username{
+  color: white;
+  font-size: larger;
+  margin-right: 10px;
+}
+
+.msb-date {
+  color: #8E9297;
+  font-size: smaller;
+}
+
+.msb-body {
+  color: #DCDDDE;
+}
+
+.messages-container {
+  padding-left: 20px;
+  padding-right: 20px;
+
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.messages-body {
+  margin-bottom: 15px;
+}
+
+.messages-container::-webkit-scrollbar {
+  display: none;
+}
+
+.message-form-input {
+  background-color: #40444B;
+  border: none;
+  border-radius: 5px;
+
+  padding-left: 20px;
+  color: #DCDDDE;
+  font-size: medium;
+
+  height: 40px;
+  width: 100%;
+
+  outline: none;
+}
+
+.msg-input-wrapper {
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.messages-page-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.channel-page-wrapper {
+  width: 100%;
+}
+
+.active-users-bar {
+  background-color: #2F3136;
+  width: 10%;
+  height: 100vh;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+.active-users-header {
+  color: #F8F9FF;
+  font-weight: bold;
+  font-size: larger;
+  height: 50px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: solid;
+  border-color: #232527;
+}
+
+.active-users-container {
+  color: #a8adb3;
+  font-size: large;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  white-space: nowrap;
 }

@@ -51,7 +51,7 @@ const LoginPage = () => {
                     <label>EMAIL<span style={{color: '#FF6961'}}>*</span></label>
                     <input type='text' value={email} onChange={e => setEmail(e.target.value.replaceAll(" ",""))}></input>
                     <label>PASSWORD<span style={{color: '#FF6961'}}>*</span></label>
-                    <input type='text' value={password} onChange={e => setPassword(e.target.value.replaceAll(" ",""))}></input>
+                    <input type='password' value={password} onChange={e => setPassword(e.target.value.replaceAll(" ",""))}></input>
                     <button className='log-reg-btn' type='button' onClick={login}>Continue</button>
                 </div>
                 {error && <ul>{errorMessage.map((msg, i) => (<li className='log-reg-err' key={`${i}`}>{`${msg}`}</li>))}</ul>}

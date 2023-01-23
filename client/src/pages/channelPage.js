@@ -6,7 +6,7 @@ const ChannelPage = () => {
     const {channelId} = useParams()
 
     return (
-        <main className="test" style={{padding: 0, margin: 0}}>
+        <main className="channel-page-wrapper" style={{padding: 0, margin: 0, display: 'flex'}}>
             <ChatBar channelId={channelId}/>
             <Outlet/>
         </main>

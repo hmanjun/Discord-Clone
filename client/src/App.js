@@ -6,6 +6,7 @@ import LoginPage from './pages/loginPage'
 import RegisterPage from './pages/registerPage'
 import MainPage from './pages/mainPage';
 import ChannelPage from './pages/channelPage'
+import MessageSection from './components/message-section';
 
 function App() {
   
@@ -17,7 +18,7 @@ function App() {
           <Route path="/register" element={<RegisterPage/>}/>
           <Route path="/channels" element={<MainPage/>}>
             <Route path='/channels/:channelId' element={<ChannelPage/>}>
-              <Route path='/channels/:channelId/:chatId' element={<ChannelPage/>}/>
+              <Route path='/channels/:channelId/:chatId' element={<MessageSection/>}/>
             </Route>
           </Route>
         </Routes>
