@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Link, useParams } from 'react-router-dom'
 import axios from "axios";
+import CreateModal from "./create-channel-modal";
 
 const ChannelBar = () => {
     const [loading, setLoading] = useState(true)
@@ -50,9 +51,7 @@ const ChannelBar = () => {
             <Link className={`channel-bar-link ${selectedChannel === "P1" ? "channel-bar-selected" : ""}`} to={`/channels`} data-name="P1" onClick={markCurrentServer}>
                 <span data-name="P1" onClick={markCurrentServer}>P1</span>
             </Link>
-            <div className={`channel-bar-link channel-bar-default ${selectedChannel === "P2" ? "channel-bar-selected-green" : ""}`} data-name="P2" onClick={markCurrentServer}>
-                <span style={{fontSize: 40, padding: 0, marginTop: -10}} data-name="P2" onClick={markCurrentServer}>+</span>
-            </div>
+            <CreateModal/>
         </nav>
     )
 }

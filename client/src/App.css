@@ -353,3 +353,105 @@ body,html {
   padding-right: 20px;
   white-space: nowrap;
 }
+
+.modal-overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+
+  background-color: rgba(15, 15, 15, 0.8);
+}
+
+.modal-wrapper {
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 440px;
+
+  background-color: white;
+  padding: 20px;
+
+  border: none;
+  border-radius: 10px;
+}
+
+.modal-body h1 {
+  margin: 0px;
+}
+
+.modal-body p {
+  text-align: center;
+  font-size: medium;
+  color: #979BA1;
+}
+
+.modal-body input{
+  background-color: #cccdcf;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 80%;
+}
+
+.modal-create-button {
+  background-color: #5865F2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+
+  font-weight: bold;
+
+  width: 40%;
+
+  margin-top: 20px;
+}
+
+.modal-bottom-section {
+  background-color: #F2F3F5;
+
+  border: none;
+  border-radius: 8px;
+
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-bottom-section h4{
+  margin: 0px;
+  margin-bottom: 20px;
+}
+
+.modal-bottom-section button{
+  background-color: #6A7480;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 40%;
+  color: white;
+  font-weight: bold;
+}
+
+.modal-create-button:hover, .modal-bottom-section button:hover {
+  cursor: pointer;
+}
