@@ -3,7 +3,7 @@ import axios from "axios";
 const leaveCurrentChat = () => {
     return new Promise((res,reject) => {
         axios
-            .post(`http://localhost:8080/api/chat-room/leave`, {}, {withCredentials: true})
+            .post(`${process.env.REACT_APP_API_URL}/api/chat-room/leave`, {}, {withCredentials: true})
             .then(res())
             .catch(err => {
                 console.log(err)
@@ -17,7 +17,7 @@ const joinChat = (chatId) => {
     
     return new Promise((res,rej) => {
         axios
-            .post(`http://localhost:8080/api/chat-room/join/${chatId}`,{},{withCredentials: true})
+            .post(`${process.env.REACT_APP_API_URL}/api/chat-room/join/${chatId}`,{},{withCredentials: true})
             .then(res())
             .catch(err => {
                 console.log(err)
@@ -30,7 +30,7 @@ const joinChat = (chatId) => {
 const leaveAllChats = () => {
     return new Promise((res,rej) => {
         axios
-            .post(`http://localhost:8080/api/user/leave-all-chats`,{}, {withCredentials: true})
+            .post(`${process.env.REACT_APP_API_URL}/api/user/leave-all-chats`,{}, {withCredentials: true})
             .then(res())
             .catch(err => {
                 console.log(err)

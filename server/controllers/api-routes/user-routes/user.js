@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, ChatRoom} = require('../../../models')
+const withAuth = require('../../../utils/auth')
 
 router.post('/sign-up', async(req, res) => {
     try {
@@ -51,7 +52,7 @@ router.post('/logout', async(req,res) => {
     }
 })
 
-router.get('/channels', async(req,res) => {
+router.get('/channels', withAuth, async(req,res) => {
     try {
         const userData = await User.findOne({_id: req.session.userId}).populate('joinedChannels')
         if(!userData){
@@ -66,7 +67,7 @@ router.get('/channels', async(req,res) => {
     }
 })
 
-router.post('/leave-all-chats', async (req,res) => {
+router.post('/leave-all-chats', withAuth, async (req,res) => {
     try {
         const {joinedChannels} = await User.findById(req.session.userId).populate('joinedChannels')
         if(!joinedChannels) {

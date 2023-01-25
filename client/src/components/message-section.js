@@ -13,9 +13,11 @@ const MessageSection = () => {
     const [formText, setFormText] = useState("")
     const [reFetch, setReFetch] = useState(1)
     const [connected, setConnected] = useState(false)
+    const [reload, setReload] = useState(false)
 
     const navigate = useNavigate()
     const {chatId} = useParams()
+    //if(chatId) setReload(true)
     const messagesEnd = useRef(null)
 
     useEffect(() => {
@@ -40,8 +42,9 @@ const MessageSection = () => {
                 ws.onerror = ws.onopen = ws.onclose = null;
                 ws.close();
             }
-        
-            ws = new WebSocket(`ws://localhost:8080`)
+            //const url = process.env.REACT_APP_WS
+            //console.log(url)
+            ws = new WebSocket('ws://localhost:8080')
             setConnected(true)
         
             ws.onopen = () =>{
@@ -70,7 +73,7 @@ const MessageSection = () => {
 
         //return () => ws.close()
         //console.log(messageData)
-    }, [reFetch])
+    }, [reFetch, reload])
 
     useEffect(() => {
         messagesEnd.current?.scrollIntoView()

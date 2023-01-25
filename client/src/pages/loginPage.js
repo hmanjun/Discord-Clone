@@ -27,13 +27,13 @@ const LoginPage = () => {
     const login = () => {
         if(!validateFields()) return
         axios
-            .post(`http://localhost:8080/api/user/login`, {
+            .post(`${process.env.REACT_APP_API_URL}/api/user/login`, {
                 email: email,
                 password: password
             }, {withCredentials: true})
             .then(async response => {
                 await leaveAllChats()
-                window.location.assign(`/channels`)
+                window.location.assign(`/channels/@me`)
                 //this.props.router.push('/channels')
             })
             .catch(err => {

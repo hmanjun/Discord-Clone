@@ -70,7 +70,7 @@ const wsMap = {}
 
 //WSS listeners
 wss.on("connection", (ws,req) => {
-    console.log(`Client has connected to ws server.`)
+    //console.log(`Client has connected to ws server.`)
     /*
     session(req.upgradeReq, {}, () => {
         console.log(req.upgradeReq.session)

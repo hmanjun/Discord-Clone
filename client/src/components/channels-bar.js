@@ -11,7 +11,7 @@ const ChannelBar = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/api/user/channels`, {withCredentials: true})
+            .get(`${process.env.REACT_APP_API_URL}/api/user/channels`, {withCredentials: true})
             .then(response => {
                 setLoading(false)
                 setChannels([...response.data.data])
@@ -48,9 +48,7 @@ const ChannelBar = () => {
                 ))
                 
             )}
-            <Link className={`channel-bar-link ${selectedChannel === "P1" ? "channel-bar-selected" : ""}`} to={`/channels`} data-name="P1" onClick={markCurrentServer}>
-                <span data-name="P1" onClick={markCurrentServer}>P1</span>
-            </Link>
+            <Link className={`channel-bar-link channel-bar-default ${selectedChannel === "@me" ? "channel-bar-selected-green" : ""}`} to="/channels/@me" data-name="@me" onClick={markCurrentServer}><span style={{fontSize: 30}} data-name="@me" onClick={markCurrentServer}>✦</span></Link>
             <CreateModal/>
         </nav>
     )
