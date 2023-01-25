@@ -5,7 +5,8 @@ const messageSchema = new Schema(
     {
         author: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'user'
+            ref: 'user',
+            required: true
         },
         body: {
             type: String,
@@ -13,7 +14,8 @@ const messageSchema = new Schema(
         },
         chatRoom: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'chatroom'
+            ref: 'chatroom',
+            required: true
         },
         createdData: {
             type: Date,

@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { leaveAllChats } from '../utils/chatHelpers'
 import axios from 'axios'
 
 const LoginPage = () => {
@@ -26,15 +27,17 @@ const LoginPage = () => {
     const login = () => {
         if(!validateFields()) return
         axios
-            .post(`http://${window.location.host}/api/user/login`,{
+            .post(`${process.env.REACT_APP_API_URL}/api/user/login`, {
                 email: email,
                 password: password
-            })
-            .then(response => {
-                window.location.assign(`https://google.com`)
+            }, {withCredentials: true})
+            .then(async response => {
+                await leaveAllChats()
+                window.location.assign(`/channels/@me`)
+                //this.props.router.push('/channels')
             })
             .catch(err => {
-                setErrorMessage(err)
+                setErrorMessage([err])
                 setError(true)
             })
     }
@@ -48,7 +51,7 @@ const LoginPage = () => {
                     <label>EMAIL<span style={{color: '#FF6961'}}>*</span></label>
                     <input type='text' value={email} onChange={e => setEmail(e.target.value.replaceAll(" ",""))}></input>
                     <label>PASSWORD<span style={{color: '#FF6961'}}>*</span></label>
-                    <input type='text' value={password} onChange={e => setPassword(e.target.value.replaceAll(" ",""))}></input>
+                    <input type='password' value={password} onChange={e => setPassword(e.target.value.replaceAll(" ",""))}></input>
                     <button className='log-reg-btn' type='button' onClick={login}>Continue</button>
                 </div>
                 {error && <ul>{errorMessage.map((msg, i) => (<li className='log-reg-err' key={`${i}`}>{`${msg}`}</li>))}</ul>}
