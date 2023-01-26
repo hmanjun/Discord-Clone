@@ -1,10 +1,13 @@
 {
+  "homepage": "https://hmanjun.github.io/Discord-Clone",
   "name": "discord-clone",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "cd client npm run build",
+    "deploy": "cd client gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -16,8 +19,8 @@
   "bugs": {
     "url": "https://github.com/hmanjun/Discord-Clone/issues"
   },
-  "homepage": "https://github.com/hmanjun/Discord-Clone#readme",
   "dependencies": {
+    "gh-pages": "^5.0.0",
     "mongoose": "^6.8.2"
   }
 }
