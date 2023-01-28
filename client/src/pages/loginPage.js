@@ -37,7 +37,8 @@ const LoginPage = () => {
                 console.log(response)
                 await leaveAllChats()
                 //window.location.assign(`/Discord-Clone/#/channels/@me`)
-                navigate(`/Discord-Clone/#/channels/@me`)
+                window.history.replaceState(null, "New Page Title", "/channels/@me")
+                //navigate(`/Discord-Clone/#/channels/@me`)
                 
                 //this.props.router.push('/channels')
             })
