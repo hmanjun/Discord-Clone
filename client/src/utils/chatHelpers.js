@@ -4,7 +4,10 @@ const leaveCurrentChat = () => {
     return new Promise((res,reject) => {
         axios
             .post(`${process.env.REACT_APP_API_URL}/api/chat-room/leave`, {}, {withCredentials: true})
-            .then(res())
+            .then(response => {
+                console.log(response)
+                res()
+            })
             .catch(err => {
                 console.log(err)
                 reject()
