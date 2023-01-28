@@ -44,7 +44,7 @@ const MessageSection = () => {
             }
             //const url = process.env.REACT_APP_WS
             //console.log(url)
-            ws = new WebSocket('ws://localhost:8080')
+            ws = new WebSocket('ws://dclone-backend.herokuapp.com/')
             setConnected(true)
         
             ws.onopen = () =>{

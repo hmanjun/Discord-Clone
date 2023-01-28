@@ -23,7 +23,7 @@ const CreateModal = () => {
             .then((response) => {
                 const {data} = response
                 setChannelName("")
-                window.location.assign(`/channels/${data._id}`)
+                window.location.assign(`/Discord-Clone/#/channels/${data._id}`)
             })
             .catch((err) => console.log(err))
     }
@@ -35,7 +35,7 @@ const CreateModal = () => {
                 const joinCopy = joinId
                 setJoinId("")
                 setModalType(true)
-                window.location.assign(`/channels/${joinId}`)
+                window.location.assign(`/Discord-Clone/#/channels/${joinId}`)
             })
             .catch((err) => console.log(err))
     }

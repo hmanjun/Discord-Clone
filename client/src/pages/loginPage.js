@@ -33,7 +33,7 @@ const LoginPage = () => {
             }, {withCredentials: true})
             .then(async response => {
                 await leaveAllChats()
-                window.location.assign(`/channels/@me`)
+                window.location.assign(`/Discord-Clone/#/channels/@me`)
                 //this.props.router.push('/channels')
             })
             .catch(err => {
@@ -55,7 +55,7 @@ const LoginPage = () => {
                     <button className='log-reg-btn' type='button' onClick={login}>Continue</button>
                 </div>
                 {error && <ul>{errorMessage.map((msg, i) => (<li className='log-reg-err' key={`${i}`}>{`${msg}`}</li>))}</ul>}
-                <p>Need an account? <a href='/register'>Register</a></p>
+                <p>Need an account? <a href='/Discord-Clone/#/register'>Register</a></p>
             </div>
         </main>
     )

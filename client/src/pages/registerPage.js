@@ -31,13 +31,13 @@ const RegisterPage = () => {
     const createAccount = () => {
         if(!validateFields()) return
         axios
-            .post(`${process.env.REACT_APP_API_URL}/api/user/sign-up`, {
+            .post(`${process.env.REACT_APP_API_URL}/api/user/sign-up/`, {
                 username: username,
                 email: email,
                 password: password
             }, {withCredentials: true})
             .then(response => {
-                window.location.assign(`/channels/@me`)
+                window.location.assign(`/Discord-Clone/#/channels/@me`)
             })
             .catch(err => {
                 setError(true)
@@ -58,7 +58,7 @@ const RegisterPage = () => {
                     <input type='text' value={password} onChange={e => setPassword(e.target.value.replaceAll(" ",""))}></input>
                     <button className='log-reg-btn' type='button' onClick={createAccount}>Continue</button>
                 </div>
-                <a href='/login'>Already have an account?</a>
+                <a href='/Discord-Clone/#/login'>Already have an account?</a>
                 {error && <ul>{errorMessage.map((msg, i) => (<li className='log-reg-err' key={`${i}`}>{`${msg}`}</li>))}</ul>}
                 <p>By registering, you consent to the creation of a account with the above credentials.</p>
             </div>
