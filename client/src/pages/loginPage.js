@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { leaveAllChats } from '../utils/chatHelpers'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const LoginPage = () => {
@@ -7,6 +8,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState("")
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
+    const navigate = useNavigate()
 
     const validateFields = () => {
         let res = true
@@ -34,7 +36,9 @@ const LoginPage = () => {
             .then(async response => {
                 console.log(response)
                 await leaveAllChats()
-                window.location.assign(`/Discord-Clone/#/channels/@me`)
+                //window.location.assign(`/Discord-Clone/#/channels/@me`)
+                navigate(`/Discord-Clone/#/channels/@me`)
+                
                 //this.props.router.push('/channels')
             })
             .catch(err => {
