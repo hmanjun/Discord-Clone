@@ -5,7 +5,6 @@ const leaveCurrentChat = () => {
         axios
             .post(`${process.env.REACT_APP_API_URL}/api/chat-room/leave`, {}, {withCredentials: true})
             .then(response => {
-                console.log(response)
                 res()
             })
             .catch(err => {

@@ -32,6 +32,7 @@ const LoginPage = () => {
                 password: password
             }, {withCredentials: true})
             .then(async response => {
+                console.log(response)
                 await leaveAllChats()
                 window.location.assign(`/Discord-Clone/#/channels/@me`)
                 //this.props.router.push('/channels')
