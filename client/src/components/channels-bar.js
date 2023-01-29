@@ -12,7 +12,7 @@ const ChannelBar = () => {
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_API_URL}/api/user/channels`, {headers: {'Authorization': `Bearer ${jwtService.getUserToken}`}})
+            .get(`${process.env.REACT_APP_API_URL}/api/user/channels`, {headers: {'Authorization': `Bearer ${jwtService.getUserToken()}`}})
             .then(response => {
                 setLoading(false)
                 setChannels([...response.data.data])

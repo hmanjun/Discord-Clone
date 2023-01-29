@@ -33,7 +33,7 @@ const joinChat = (chatId) => {
 const leaveAllChats = () => {
     return new Promise((res,rej) => {
         axios
-            .post(`${process.env.REACT_APP_API_URL}/api/user/leave-all-chats`,{}, {headers: {'Authorization': `Bearer ${jwtService.getUserToken}`}})
+            .post(`${process.env.REACT_APP_API_URL}/api/user/leave-all-chats`,{}, {headers: {'Authorization': `Bearer ${jwtService.getUserToken()}`}})
             .then(res())
             .catch(err => {
                 console.log(err)
