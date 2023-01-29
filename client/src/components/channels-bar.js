@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Link, useParams } from 'react-router-dom'
 import axios from "axios";
 import CreateModal from "./create-channel-modal";
+import jwtService from "../utils/jwtManager"
 
 const ChannelBar = () => {
     const [loading, setLoading] = useState(true)
@@ -11,7 +12,7 @@ const ChannelBar = () => {
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_API_URL}/api/user/channels`, {withCredentials: true})
+            .get(`${process.env.REACT_APP_API_URL}/api/user/channels`, {headers: {'Authorization': `Bearer ${jwtService.getUserToken}`}})
             .then(response => {
                 setLoading(false)
                 setChannels([...response.data.data])

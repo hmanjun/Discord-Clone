@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios'
+import jwtService from '../utils/jwtManager'
 
 const RegisterPage = () => {
     const [email, setEmail] = useState("")
@@ -36,8 +37,8 @@ const RegisterPage = () => {
                 email: email,
                 password: password
             }, {withCredentials: true})
-            .then(response => {
-                window.location.assign(`/Discord-Clone/#/channels/@me`)
+            .then(async response => {
+                jwtService.login(response.data.accessToken)
             })
             .catch(err => {
                 setError(true)

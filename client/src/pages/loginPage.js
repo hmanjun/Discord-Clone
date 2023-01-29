@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { leaveAllChats } from '../utils/chatHelpers'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import jwtService from '../utils/jwtManager'
 
 const LoginPage = () => {
     const [email, setEmail] = useState("")
@@ -34,13 +35,8 @@ const LoginPage = () => {
                 password: password
             }, {withCredentials: true})
             .then(async response => {
-                console.log(response)
+                jwtService.login(response.data.accessToken)
                 await leaveAllChats()
-                //window.location.assign(`/Discord-Clone/#/channels/@me`)
-                window.history.replaceState(null, "New Page Title", "/channels/@me")
-                //navigate(`/Discord-Clone/#/channels/@me`)
-                
-                //this.props.router.push('/channels')
             })
             .catch(err => {
                 setErrorMessage([err])

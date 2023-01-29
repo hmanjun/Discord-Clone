@@ -7,6 +7,7 @@ class jwtService {
 
     login(token) {
         localStorage.setItem('id_token', token)
+        window.location.assign(`/Discord-Clone/#/channels/@me`)
     }
 
     logout() {
