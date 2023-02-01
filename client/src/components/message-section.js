@@ -3,6 +3,7 @@ import {useParams, useNavigate} from 'react-router-dom'
 import axios from "axios"
 import moment from 'moment'
 import { postMessage } from "../utils/chatHelpers"
+import jwtService from "../utils/jwtManager"
 
 let ws
 
