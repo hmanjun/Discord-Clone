@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import jwtService from "../utils/jwtManager"
 
 const CreateModal = () => {
     const [open, setOpen] = useState(false)
@@ -8,6 +9,7 @@ const CreateModal = () => {
     const [channelName, setChannelName] = useState("")
     const [joinId, setJoinId] = useState("")
     const navigate = useNavigate()
+    
 
     const toggleModal = () => {
         setOpen(!open)
