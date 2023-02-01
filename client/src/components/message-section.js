@@ -24,7 +24,7 @@ const MessageSection = () => {
     useEffect(() => {
         async function fetch(){
             await axios
-                .get(`${process.env.REACT_APP_API_URL}/api/chat-room/room-data`, {headers: {'room': `Bearer ${jwtService.getUserToken()}`}})
+                .get(`${process.env.REACT_APP_API_URL}/api/chat-room/room-data`, {headers: {'Room': `Bearer ${jwtService.getUserToken()}`}})
                 .then(response => {
                     //console.log(response)
                     setMessageData([...response.data.messages])
@@ -33,7 +33,7 @@ const MessageSection = () => {
                 })
                 .catch(err => {
                     console.log(err)
-                    navigate(0)
+                    //navigate(0)
                 })
         }
         fetch()
@@ -43,37 +43,23 @@ const MessageSection = () => {
                 ws.onerror = ws.onopen = ws.onclose = null;
                 ws.close();
             }
-            //const url = process.env.REACT_APP_WS
-            //console.log(url)
             ws = new WebSocket('wss://dclone-backend.herokuapp.com/')
             setConnected(true)
         
             ws.onopen = () =>{
-                //ws.send(JSON.stringify({joinRoom: true, roomName: `${roomName}`}))
                 ws.send(JSON.stringify({joinRoom: true, chatId: chatId}))
             }
         
             ws.addEventListener('message', (message) => {
-                /*
-                const {data} = message
-                console.log(data)
-                console.log(messageData)
-                setMessageData(curr => [...curr, data])
-                */
                setReFetch(cur => cur + 1)
             })
 
             ws.onclose = () => {
-                //ws.send(JSON.stringify({joingRoom: false, chatId: chatId}))
                 setConnected(false)
             }
         }
 
         if(!connected) connectWs()
-        
-
-        //return () => ws.close()
-        //console.log(messageData)
     }, [reFetch, reload])
 
     useEffect(() => {
