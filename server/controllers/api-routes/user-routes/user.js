@@ -1,17 +1,25 @@
 const router = require('express').Router()
 const {User, ChatRoom} = require('../../../models')
-const withAuth = require('../../../utils/auth')
+const {withAuth} = require('../../../utils/auth')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 router.post('/sign-up', async(req, res) => {
     try {
         const {username, email, password} = req.body
         const userData = await User.create({username, email, password})
+
+        const user = {userId: userData._id, logged_in: true}
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+        res.status(200).json({accessToken: accessToken})
         
+        /*
         req.session.save(() => {
             req.session.userId = userData._id
             req.session.logged_in = true
             res.status(200).json({message: `New user was successfully created.`})
         })
+        */
     } catch (err) {
         res.status(400).json(err)
     }
@@ -30,11 +38,16 @@ router.post('/login', async(req,res) => {
             res.status(400).json({message: `No user with that email and password was found.`})
             return
         }
+        const user = {userId: userData._id, logged_in: true}
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+        res.status(200).json({accessToken: accessToken})
+        /*
         req.session.save(() => {
             req.session.userId = userData._id
             req.session.logged_in = true
-            res.status(200).json({message: `User id was saved to session.`})
+            res.status(200).json({message: `User id was saved to session. Session: ${JSON.stringify(req.session)}`})
         })
+        */
     } catch (err) {
         res.status(400).json(err)
     }
@@ -54,7 +67,7 @@ router.post('/logout', async(req,res) => {
 
 router.get('/channels', withAuth, async(req,res) => {
     try {
-        const userData = await User.findOne({_id: req.session.userId}).populate('joinedChannels')
+        const userData = await User.findOne({_id: req.user.userId}).populate('joinedChannels')
         if(!userData){
             res.status(400).json({message: `No user found`})
             return
@@ -69,14 +82,14 @@ router.get('/channels', withAuth, async(req,res) => {
 
 router.post('/leave-all-chats', withAuth, async (req,res) => {
     try {
-        const {joinedChannels} = await User.findById(req.session.userId).populate('joinedChannels')
+        const {joinedChannels} = await User.findById(req.user.userId).populate('joinedChannels')
         if(!joinedChannels) {
-            res.status(400).json({message: `No user found`})
+            res.status(406).json({message: `No user found`})
             return
         }
         joinedChannels.forEach(channel => {
             channel.chatRooms.forEach(async (roomId) => {
-                await ChatRoom.findByIdAndUpdate(roomId, {$pull: {activeUsers: req.session.userId}})
+                await ChatRoom.findByIdAndUpdate(roomId, {$pull: {activeUsers: req.user.userId}})
             })
         })
         res.status(200).json({message: 'User removed from all chat rooms'})

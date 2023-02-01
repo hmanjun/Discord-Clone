@@ -9,6 +9,7 @@ const routes = require('./controllers')
 const {joinChatRoom, leaveRoom, getRoomUsers} = require('./ws-functions')
 const {Message} = require('./models')
 const fs = require('fs')
+const cors = require('cors')
 
 const db = require("./config/connection")
 const PORT = 8080
@@ -31,12 +32,23 @@ app.use(session(sess))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+
+app.use(
+    cors({
+        origin: "https://hmanjun.github.io",
+        credentials: true
+    })
+)
+
+
+/*
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://hmanjun.github.io"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", true)
     next();
 });
+*/
 
 //Render React html
 app.use(express.static(path.join(__dirname, '../client/build')))
@@ -46,22 +58,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(routes)
-/*
-const key = fs.readFileSync('private.key')
-const certificate = fs.readFileSync('certificate.crt')
-
-const cred = {
-    key,
-    certificate
-}
-*/
-
-//certificate process to convert to https
-/*
-app.get('/.well-known/pki-validation/588EF8D6733ACECAAA1A42338FAD9C17.txt', (req,res) => {
-    res.sendFile('/home/ec2-user/588EF8D6733ACECAAA1A42338FAD9C17.txt')
-})
-*/
 
 //Save ws with key userId
 const map = {}
@@ -89,7 +85,6 @@ wss.on("connection", (ws,req) => {
             if(wsMap[chatId]) wsMap[chatId].push(ws)
             else wsMap[chatId] = [ws]
             ws.currentChat = chatId
-            return
         }
         wsMap[chatId].forEach(user => {
             if(user.currentChat === chatId) user.send("")
@@ -109,7 +104,7 @@ wss.on("connection", (ws,req) => {
 })
 
 db.once('open', () => {
-    server.listen(PORT, () => {
+    server.listen(process.env.PORT || PORT, () => {
         console.log(`API server running on port ${PORT}!`)
     })
 })
