@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import {leaveCurrentChat} from '../utils/chatHelpers'
+import jwtService from "../utils/jwtManager"
 
 const ChatBar = ({channelId}) => {
     const [loading, setLoading] = useState(true)
@@ -27,8 +28,11 @@ const ChatBar = ({channelId}) => {
         setSelectedChat(`${chatId}`)
         await leaveCurrentChat()
         await axios
-            .post(`${process.env.REACT_APP_API_URL}/api/chat-room/join/${chatId}`,{},{withCredentials: true})
-            .then(navigate(`/channels/${channelId}/${chatId}`))
+            .post(`${process.env.REACT_APP_API_URL}/api/chat-room/join/${chatId}`,{},{headers: {'Authorization': `Bearer ${jwtService.getUserToken()}`}})
+            .then(response => {
+                jwtService.joinRoom(response.data.roomToken)
+                navigate(`/channels/${channelId}/${chatId}`)
+            })
             .catch(err => console.log(err))
     }
 

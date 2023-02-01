@@ -23,9 +23,8 @@ const DefaultSection = () => {
     const joinServer = (event) => {
         const id = event.target.getAttribute("data-id")
         axios
-            .post(`${process.env.REACT_APP_API_URL}/api/channel/join/${id}`, {}, {withCredentials: true})
+            .post(`${process.env.REACT_APP_API_URL}/api/channel/join/${id}`, {}, {headers: {'Authorization': `Bearer ${jwtService.getUserToken()}`}})
             .then(response => {
-                const joinCopy = id
                 navigate(`/channels/${id}`)
             })
             .catch((err) => console.log(err))

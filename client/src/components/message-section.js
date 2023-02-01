@@ -23,7 +23,7 @@ const MessageSection = () => {
     useEffect(() => {
         async function fetch(){
             await axios
-                .get(`${process.env.REACT_APP_API_URL}/api/chat-room/room-data`, {withCredentials: true})
+                .get(`${process.env.REACT_APP_API_URL}/api/chat-room/room-data`, {headers: {'Authorization': `Bearer ${jwtService.getUserToken()}`}})
                 .then(response => {
                     //console.log(response)
                     setMessageData([...response.data.messages])

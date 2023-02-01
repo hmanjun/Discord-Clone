@@ -19,7 +19,7 @@ const CreateModal = () => {
 
     const createServer = async() => {
         axios
-            .post(`${process.env.REACT_APP_API_URL}/api/channel/create`, {name: channelName}, {withCredentials: true})
+            .post(`${process.env.REACT_APP_API_URL}/api/channel/create`, {name: channelName}, {headers: {'Authorization': `Bearer ${jwtService.getUserToken()}`}})
             .then((response) => {
                 const {data} = response
                 setChannelName("")
@@ -30,7 +30,7 @@ const CreateModal = () => {
 
     const joinServer = () => {
         axios
-            .post(`${process.env.REACT_APP_API_URL}/api/channel/join/${joinId}`, {}, {withCredentials: true})
+            .post(`${process.env.REACT_APP_API_URL}/api/channel/join/${joinId}`, {}, {headers: {'Authorization': `Bearer ${jwtService.getUserToken()}`}})
             .then(response => {
                 const joinCopy = joinId
                 setJoinId("")
