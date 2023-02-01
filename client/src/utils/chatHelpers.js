@@ -46,7 +46,7 @@ const leaveAllChats = () => {
 const postMessage = (text) => {
     return new Promise((res,rej) => {
         axios
-            .post(`${process.env.REACT_APP_API_URL}/api/chat-room/send-message`, {body: text}, {headers: {'room': `Bearer ${jwtService.getRoomToken()}`, 'Authorization': `Bearer ${jwtService.getUserToken()}`}})
+            .post(`${process.env.REACT_APP_API_URL}/api/chat-room/send-message`, {body: text}, {headers: {'Authorization': `Bearer ${jwtService.getUserToken()}`}})
             .then(response => res(response.data))
             .catch(err => {
                 console.log(err)

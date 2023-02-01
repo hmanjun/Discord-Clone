@@ -30,7 +30,7 @@ const ChatBar = ({channelId}) => {
         await axios
             .post(`${process.env.REACT_APP_API_URL}/api/chat-room/join/${chatId}`,{},{headers: {'Authorization': `Bearer ${jwtService.getUserToken()}`}})
             .then(response => {
-                jwtService.joinRoom(response.data.roomToken)
+                jwtService.joinRoom(response.data.accessToken)
                 navigate(`/channels/${channelId}/${chatId}`)
             })
             .catch(err => console.log(err))

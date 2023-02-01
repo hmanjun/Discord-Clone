@@ -14,16 +14,8 @@ class jwtService {
         localStorage.removeItem('id_token')
     }
 
-    getRoomToken() {
-        return localStorage.getItem('room_token')
-    }
-
     joinRoom(token) {
-        localStorage.setItem('room_token', token)
-    }
-
-    leaveRoom() {
-        localStorage.removeItem('room_token')
+        localStorage.setItem('id_token', token)
     }
 }
 
